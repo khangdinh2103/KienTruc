@@ -1,4 +1,4 @@
-package adapterpattern;
+package adapterpattern.translator;
 
 public class AdapterPatternDemo {
     public static void main(String[] args) {

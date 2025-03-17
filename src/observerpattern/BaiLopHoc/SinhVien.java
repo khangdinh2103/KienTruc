@@ -1,4 +1,4 @@
-package observerpattern;
+package observerpattern.BaiLopHoc;
 
 class SinhVien implements IObserver {
     private String ten;

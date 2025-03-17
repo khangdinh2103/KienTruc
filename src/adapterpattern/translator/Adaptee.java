@@ -1,4 +1,4 @@
-package adapterpattern;
+package adapterpattern.translator;
 
 public class Adaptee {
     public void receiveMessage(String message) {

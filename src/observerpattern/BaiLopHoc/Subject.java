@@ -1,4 +1,4 @@
-package observerpattern;
+package observerpattern.BaiLopHoc;
 
 public interface Subject {
     void attach(IObserver observer);

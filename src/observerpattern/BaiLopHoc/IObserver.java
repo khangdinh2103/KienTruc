@@ -1,4 +1,4 @@
-package observerpattern;
+package observerpattern.BaiLopHoc;
 
 interface IObserver {
     void update(String message);

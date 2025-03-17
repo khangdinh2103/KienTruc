@@ -1,4 +1,4 @@
-package observerpattern;
+package observerpattern.BaiLopHoc;
 
 import java.util.ArrayList;
 import java.util.List;
