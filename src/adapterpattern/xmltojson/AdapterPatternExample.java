@@ -1,4 +1,5 @@
 package adapterpattern.xmltojson;
+
 import org.json.JSONObject;
 import org.json.XML;
 
@@ -25,7 +26,7 @@ class DataAdapter implements JsonProcessor {
         return xmlProcessor.processXml(xmlData);
     }
 
-    private String jsonToXml(String jsonData) {
+    public String jsonToXml(String jsonData) {
         JSONObject json = new JSONObject(jsonData);
         return XML.toString(json);
     }
@@ -41,10 +42,19 @@ public class AdapterPatternExample {
         XmlProcessor xmlProcessor = new XmlProcessor();
         DataAdapter adapter = new DataAdapter(xmlProcessor);
 
+        // Test chuyển JSON → XML
+        System.out.println("----- JSON to XML Test -----");
         String jsonData = "{\"name\": \"John\", \"age\": 30}";
-        System.out.println(adapter.processJson(jsonData));
+        String convertedXml = adapter.jsonToXml(jsonData);
+        System.out.println("Converted XML:\n" + convertedXml);
 
+        // Test xử lý XML trong hệ thống cũ
+        System.out.println("Processing XML: " + xmlProcessor.processXml(convertedXml));
+
+        // Test chuyển XML → JSON
+        System.out.println("\n----- XML to JSON Test -----");
         String xmlData = "<name>John</name><age>30</age>";
-        System.out.println("Converted JSON: \n" + adapter.xmlToJson(xmlData));
+        String convertedJson = adapter.xmlToJson(xmlData);
+        System.out.println("Converted JSON:\n" + convertedJson);
     }
 }
