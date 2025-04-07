@@ -5,16 +5,20 @@ import org.json.XML;
 
 interface JsonProcessor {
     String processJson(String jsonData);
+
 }
 
 class XmlProcessor {
     public String processXml(String xmlData) {
         return "Processed XML Data: " + xmlData;
+
     }
 }
 
 class DataAdapter implements JsonProcessor {
     private XmlProcessor xmlProcessor;
+
+
 
     public DataAdapter(XmlProcessor xmlProcessor) {
         this.xmlProcessor = xmlProcessor;

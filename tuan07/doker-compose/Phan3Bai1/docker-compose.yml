@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-container
+    ports:
+      - "80:80"  # Mở cổng 80 để truy cập WordPress
+    environment:
+      WORDPRESS_DB_HOST: mysql:3306  # Kết nối với MySQL qua tên service
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}  # Tên cơ sở dữ liệu
+      WORDPRESS_DB_USER: ${MYSQL_USER}  # Tên người dùng MySQL
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}  # Mật khẩu MySQL
+    volumes:
+      - wordpress-data:/var/www/html  # Lưu trữ dữ liệu của WordPress
+    depends_on:
+      - mysql  # Đảm bảo MySQL khởi động trước WordPress
+    networks:
+      - wordpress-network
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Mật khẩu root của MySQL
+      MYSQL_DATABASE: ${MYSQL_DATABASE}  # Tên cơ sở dữ liệu MySQL
+      MYSQL_USER: ${MYSQL_USER}  # Tên người dùng MySQL
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}  # Mật khẩu của người dùng MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql  # Lưu trữ dữ liệu của MySQL
+    networks:
+      - wordpress-network
+
+volumes:
+  wordpress-data:
+    driver: local
+  mysql-data:
+    driver: local
+
+networks:
+  wordpress-network:
+    driver: bridge
