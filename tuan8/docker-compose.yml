@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - sales-net
+
+  product-service:
+    build: ./service/product-service
+    container_name: product-service
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/sales-management
+    networks:
+      - sales-net
+    depends_on:
+      - mongodb
+
+  order-service:
+    build: ./service/order-service
+    container_name: order-service
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/order-service
+    networks:
+      - sales-net
+    depends_on:
+      - mongodb
+
+  customer-service:
+    build: ./service/customer-service
+    container_name: customer-service
+    ports:
+      - "3003:3003"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/customer-service
+    networks:
+      - sales-net
+    depends_on:
+      - mongodb
+
+networks:
+  sales-net:
+    driver: bridge
